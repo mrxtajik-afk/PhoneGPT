@@ -145,7 +145,8 @@ async def handle_admin_cb(callback: types.CallbackQuery):
         await callback.message.answer(f"📊 Пользователей: {total}")
 
 def save_db(role, uid, uname, umsg, aresp, rmid, rc=0):
-    conn = sqlite3.connect(DB_DIR / f"{role}.db", check_same_thread=False)    cur = conn.cursor()
+    conn = sqlite3.connect(DB_DIR / f"{role}.db", check_same_thread=False)    
+    cur = conn.cursor()
     cur.execute("INSERT INTO dialogs(user_id,username,message_text,response_text,rating,retry_count) VALUES(?,?,?,?,NULL,?)", (uid, uname, umsg, aresp, rc))
     conn.commit()
     conn.close()
